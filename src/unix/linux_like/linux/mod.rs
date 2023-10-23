@@ -3113,11 +3113,14 @@ pub const SIOCIWLASTPRIV: c_ulong = 0x8BFF;
 
 pub const SIOCIWFIRST: c_ulong = 0x8B00;
 pub const SIOCIWLAST: c_ulong = SIOCIWLASTPRIV;
-macro_rules! IW_IOCTL_IDX {
-    // IT IS NOT IN libc-test/semver/linux.txt
-    ($cmd:expr) => {
-        $cmd - SIOCIWFIRST
-    };
+// macro_rules! IW_IOCTL_IDX {
+//     // IT IS NOT IN libc-test/semver/linux.txt
+//     ($cmd:expr) => {
+//         $cmd - SIOCIWFIRST
+//     };
+// }
+pub fn IW_IOCTL_IDX(cmd: ::c_ulong) -> ::c_ulong {
+    cmd - SIOCIWFIRST
 }
 macro_rules! IW_HANDLER {
     // IT IS NOT IN libc-test/semver/linux.txt
