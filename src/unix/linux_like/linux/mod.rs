@@ -718,6 +718,145 @@ s! {
         pub salt: [::c_uchar; TLS_CIPHER_CHACHA20_POLY1305_SALT_SIZE],
         pub rec_seq: [::c_uchar; TLS_CIPHER_CHACHA20_POLY1305_REC_SEQ_SIZE],
     }
+
+    // linux/wireless.h
+
+    pub struct iw_param {
+        pub value: __s32,
+        pub fixed: __u8,
+        pub disabled: __u8,
+        pub flags: __u16,
+    }
+    pub struct iw_point {
+        pub pointer: *mut ::c_void,
+        pub length: __u16,
+        pub flags: __u16,
+    }
+    pub struct iw_freq {
+        pub m: __s32,
+        pub e: __s16,
+        pub i: __u8,
+        pub flags: __u8,
+    }
+    pub struct iw_quality {
+        pub qual: __u8,
+        pub level: __u8,
+        pub noise: __u8,
+        pub updated: __u8,
+    }
+    pub struct iw_discarded {
+        pub nwid: __u32,
+        pub code: __u32,
+        pub fragment: __u32,
+        pub retries: __u32,
+        pubmisc: __u32,
+    }
+    pub struct iw_missed {
+        pub beacon: __u32,
+    }
+    pub struct iw_thrspy {
+        pub addr: ::sockaddr,
+        pub qual: iw_quality,
+        pub low: iw_quality,
+        pub high: iw_quality,
+    }
+    pub struct iw_scan_req {
+        pub scan_type: __u8,
+        pub essid_len: __u8,
+        pub num_channels: __u8,
+        pub flags: __u8,
+        pub bssid: ::sockaddr,
+        pub essid: [__u8; IW_ESSID_MAX_SIZE],
+        pub min_channel_time: __u32,
+        pub max_channel_time: __u32,
+        pub channel_list: [iw_freq; IW_MAX_FREQUENCIES],
+    }
+    pub struct iw_encode_ext {
+        pub ext_flags: __u32,
+        pub tx_seq: [__u8; IW_ENCODE_SEQ_MAX_SIZE],
+        pub rx_seq: [__u8; IW_ENCODE_SEQ_MAX_SIZE],
+        pub addr: ::sockaddr,
+        pub alg: __u16,
+        pub key_len: __u16,
+        pub key: *mut __u8,
+    }
+    pub struct iw_mlme {
+        pub cmd: __u16,
+        pub reason_code: __u16,
+        pub addr: ::sockaddr,
+    }
+    pub struct iw_pmksa {
+        pub cmd: __u32,
+        pub bssid: ::sockaddr,
+        pub pmkid: [__u8; IW_PMKID_LEN],
+    }
+    pub struct iw_michaelmicfailure {
+        pub flags: __u32,
+        pub src_addr: ::sockaddr,
+        pub tsc: [__u8; IW_ENCODE_SEQ_MAX_SIZE],
+    }
+    pub struct iw_pmkid_cand {
+        pub flags: __u32,
+        pub index: __u32,
+        pub bssid: ::sockaddr,
+    }
+    pub struct iw_statistics {
+        pub status: __u16,
+        pub qual: iw_quality,
+        pub discard: iw_discarded,
+        pub miss: iw_missed,
+    }
+    pub struct iw_range {
+        pub throughput: __u32,
+        pub min_nwid: __u32,
+        pub max_nwid: __u32,
+        pub old_num_channels: __u16,
+        pub old_num_frequency: __u8,
+        pub scan_capa: __u8,
+        pub event_capa: [__u32; 6],
+        pub sensitivity: __s32,
+        pub max_qual: iw_quality,
+        pub avg_qual: iw_quality,
+        pub num_bitrates: __u8,
+        pub bitrate: [__s32; IW_MAX_BITRATES],
+        pub min_rts: __s32,
+        pub max_rts: __s32,
+        pub min_frag: __s32,
+        pub max_frag: __s32,
+        pub min_pmp: __s32,
+        pub max_pmp: __s32,
+        pub min_pmt: __s32,
+        pub max_pmt: __s32,
+        pub pmp_flags: __u16,
+        pub pmt_flags: __u16,
+        pub pm_capa: __u16,
+        pub encoding_size: [__u16; IW_MAX_ENCODING_SIZES],
+        pub num_encoding_sizes: __u8,
+        pub max_encoding_tokens: __u8,
+        pub encoding_login_index: __u8,
+        pub txpower_capa: __u16,
+        pub num_txpower: __u8,
+        pub txpower: [__s32;IW_MAX_TXPOWER],
+        pub we_version_compiled: __u8,
+        pub we_version_source: __u8,
+        pub retry_capa: __u16,
+        pub retry_flags: __u16,
+        pub r_time_flags: __u16,
+        pub min_retry: __s32,
+        pub max_retry: __s32,
+        pub min_r_time: __s32,
+        pub max_r_time: __s32,
+        pub num_channels: __u16,
+        pub num_frequency: __u8,
+        pub freq: [iw_freq; IW_MAX_FREQUENCIES],
+        pub enc_capa: __u32,
+    }
+    pub struct iw_priv_args {
+        pub cmd: __u32,
+        pub set_args: __u16,
+        pub get_args: __u16,
+        pub name: [c_char; ::IFNAMSIZ],
+    }
 }
 
 s_no_extra_traits! {
@@ -856,6 +995,52 @@ s_no_extra_traits! {
     }
 }
 
+s_no_extra_traits! {
+    // linux/wireless.h
+    #[cfg(libc_union)]
+    pub union iwreq_data {
+            pub name: [c_char; ::IFNAMSIZ],
+            pub essid: iw_point,
+            pub nwid: iw_param,
+            pub freq: iw_freq,
+            pub sens: iw_param,
+            pub bitrate: iw_param,
+            pub txpower: iw_param,
+            pub rts: iw_param,
+            pub frag: iw_param,
+            pub mode: __u32,
+            pub retry: iw_param,
+            pub encoding: iw_point,
+            pub power: iw_param,
+            pub qual: iw_quality,
+            pub ap_addr: ::sockaddr,
+            pub addr: ::sockaddr,
+            pub param: iw_param,
+            pub data: iw_point,
+    }
+
+    pub struct iw_event {
+        pub len: __u16,
+        pub cmd: __u16,
+        #[cfg(libc_union)]
+        pub u: iwreq_data,
+        #[cfg(not(libc_union))]
+        pub u: [c_char; ::IFNAMSIZ],
+    }
+
+    #[cfg(libc_union)]
+    pub union __c_anonymous_iwreq {
+        pub ifrn_name: [c_char; ::IFNAMSIZ],
+    }
+
+    pub struct iwreq {
+        #[cfg(libc_union)]
+        pub ifr_ifrn: __c_anonymous_iwreq,
+        #[cfg(not(libc_union))]
+        pub ifr_ifrn: [c_char; ::IFNAMSIZ],
+        pub u: iwreq_data,
+    }
+}
 s_no_extra_traits! {
     // linux/net_tstamp.h
     #[allow(missing_debug_implementations)]
@@ -1317,6 +1502,59 @@ cfg_if! {
                 self.flags.hash(state);
                 self.tx_type.hash(state);
                 self.rx_filter.hash(state);
+            }
+        }
+        #[cfg(libc_union)]
+        impl ::fmt::Debug for iwreq_data {
+            fn fmt(&self, f: &mut ::fmt::Formatter) -> ::fmt::Result {
+                f.debug_struct("iwreq_data")
+                    .field("name", unsafe { &self.name })
+                    .field("essid", unsafe { &self.essid })
+                    .field("nwid", unsafe { &self.nwid })
+                    .field("freq", unsafe { &self.freq })
+                    .field("sens", unsafe { &self.sens })
+                    .field("bitrate", unsafe { &self.bitrate })
+                    .field("txpower", unsafe { &self.txpower })
+                    .field("rts", unsafe { &self.rts })
+                    .field("frag", unsafe { &self.frag })
+                    .field("mode", unsafe { &self.mode })
+                    .field("retry", unsafe { &self.retry })
+                    .field("encoding", unsafe { &self.encoding })
+                    .field("power", unsafe { &self.power })
+                    .field("qual", unsafe { &self.qual })
+                    .field("ap_addr", unsafe { &self.ap_addr })
+                    .field("addr", unsafe { &self.addr })
+                    .field("param", unsafe { &self.param })
+                    .field("data", unsafe { &self.data })
+                    .finish()
+            }
+        }
+
+        impl ::fmt::Debug for iw_event {
+            fn fmt(&self, f: &mut ::fmt::Formatter) -> ::fmt::Result {
+                f.debug_struct("iw_event")
+                    .field("len", &self.len )
+                    .field("cmd", &self.cmd )
+                    .field("u", &self.u )
+                    .finish()
+            }
+        }
+
+        #[cfg(libc_union)]
+        impl ::fmt::Debug for __c_anonymous_iwreq {
+            fn fmt(&self, f: &mut ::fmt::Formatter) -> ::fmt::Result {
+                f.debug_struct("__c_anonymous_iwreq")
+                    .field("ifrn_name", unsafe { &self.ifrn_name })
+                    .finish()
+            }
+        }
+
+        impl ::fmt::Debug for iwreq {
+            fn fmt(&self, f: &mut ::fmt::Formatter) -> ::fmt::Result {
+                f.debug_struct("iwreq")
+                    .field("ifr_ifrn", &self.ifr_ifrn )
+                    .field("u", &self.u )
+                    .finish()
             }
         }
     }
@@ -2964,6 +3202,16 @@ pub const SIOCIWLASTPRIV: ::c_ulong = 0x8BFF;
 pub const SIOCIWFIRST: ::c_ulong = 0x8B00;
 pub const SIOCIWLAST: ::c_ulong = SIOCIWLASTPRIV;
 
+pub fn IW_IOCTL_IDX(cmd: ::c_ulong) -> ::c_ulong {
+    cmd - SIOCIWFIRST
+}
+pub fn IW_IS_SET(cmd: ::c_ulong) -> ::c_ulong {
+    !(cmd & 0x1)
+}
+pub fn IW_IS_GET(cmd: ::c_ulong) -> ::c_ulong {
+    cmd & 0x1
+}
+
 pub const IWEVTXDROP: ::c_ulong = 0x8C00;
 pub const IWEVQUAL: ::c_ulong = 0x8C01;
 pub const IWEVCUSTOM: ::c_ulong = 0x8C02;
@@ -3164,6 +3412,37 @@ pub const IW_ENC_CAPA_CIPHER_TKIP: ::c_ulong = 0x00000004;
 pub const IW_ENC_CAPA_CIPHER_CCMP: ::c_ulong = 0x00000008;
 pub const IW_ENC_CAPA_4WAY_HANDSHAKE: ::c_ulong = 0x00000010;
 
+pub fn IW_EVENT_CAPA_BASE(cmd: ::c_ulong) -> ::c_ulong {
+    if cmd >= SIOCIWFIRSTPRIV {
+        cmd - SIOCIWFIRSTPRIV + 0x60
+    } else {
+        cmd - SIOCIWFIRST
+    }
+}
+pub fn IW_EVENT_CAPA_INDEX(cmd: ::c_ulong) -> ::c_ulong {
+    IW_EVENT_CAPA_BASE(cmd) >> 5
+}
+pub fn IW_EVENT_CAPA_MASK(cmd: ::c_ulong) -> ::c_ulong {
+    1 << (IW_EVENT_CAPA_BASE(cmd) & 0x1F)
+}
+pub const IW_EVENT_CAPA_K_0: c_ulong = 0x4000050; //   IW_EVENT_CAPA_MASK(0x8B04) | IW_EVENT_CAPA_MASK(0x8B06) | IW_EVENT_CAPA_MASK(0x8B1A);
+pub const IW_EVENT_CAPA_K_1: c_ulong = 0x400; //   W_EVENT_CAPA_MASK(0x8B2A);
+macro_rules! IW_EVENT_CAPA_SET {
+    // It is not in libc-test/semver/linux.txt
+    ($event_capa:expr,$cmd:expr) => {
+        event_capa[IW_EVENT_CAPA_INDEX(cmd)] |= IW_EVENT_CAPA_MASK(cmd)
+    };
+}
+macro_rules! IW_EVENT_CAPA_SET_KERNEL {
+    // It is not in libc-test/semver/linux.txt
+    ($event_capa:expr) => {{
+        {
+            event_capa[0] |= IW_EVENT_CAPA_K_0;
+            event_capa[1] |= IW_EVENT_CAPA_K_1;
+        }
+    }};
+}
+
 pub const IW_PMKSA_ADD: usize = 1;
 pub const IW_PMKSA_REMOVE: usize = 2;
 pub const IW_PMKSA_FLUSH: usize = 3;
@@ -3172,9 +3451,23 @@ pub const IW_PMKID_LEN: usize = 16;
 
 pub const IW_PMKID_CAND_PREAUTH: ::c_ulong = 0x00000001;
 
+pub const IW_EV_LCP_LEN: usize = ::mem::size_of::<iw_event>() - ::mem::size_of::<iwreq_data>();
+
+pub const IW_EV_CHAR_LEN: usize = IW_EV_LCP_LEN + ::IFNAMSIZ;
+pub const IW_EV_UINT_LEN: usize = IW_EV_LCP_LEN + ::mem::size_of::<u32>();
+pub const IW_EV_FREQ_LEN: usize = IW_EV_LCP_LEN + ::mem::size_of::<iw_freq>();
+pub const IW_EV_PARAM_LEN: usize = IW_EV_LCP_LEN + ::mem::size_of::<iw_param>();
+pub const IW_EV_ADDR_LEN: usize = IW_EV_LCP_LEN + ::mem::size_of::<::sockaddr>();
+pub const IW_EV_QUAL_LEN: usize = IW_EV_LCP_LEN + ::mem::size_of::<iw_quality>();
+
 pub const IW_EV_LCP_PK_LEN: usize = 4;
 
 pub const IW_EV_CHAR_PK_LEN: usize = IW_EV_LCP_PK_LEN + ::IFNAMSIZ;
+pub const IW_EV_UINT_PK_LEN: usize = IW_EV_LCP_PK_LEN + ::mem::size_of::<u32>();
+pub const IW_EV_FREQ_PK_LEN: usize = IW_EV_LCP_PK_LEN + ::mem::size_of::<iw_freq>();
+pub const IW_EV_PARAM_PK_LEN: usize = IW_EV_LCP_PK_LEN + ::mem::size_of::<iw_param>();
+pub const IW_EV_ADDR_PK_LEN: usize = IW_EV_LCP_PK_LEN + ::mem::size_of::<::sockaddr>();
+pub const IW_EV_QUAL_PK_LEN: usize = IW_EV_LCP_PK_LEN + ::mem::size_of::<iw_quality>();
 pub const IW_EV_POINT_PK_LEN: usize = IW_EV_LCP_PK_LEN + 4;
 
 pub const IPTOS_TOS_MASK: u8 = 0x1E;
