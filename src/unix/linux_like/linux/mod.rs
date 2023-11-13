@@ -778,7 +778,7 @@ s! {
         pub addr: ::sockaddr,
         pub alg: __u16,
         pub key_len: __u16,
-        pub key: *mut __u8,
+        pub key: __u8,
     }
     pub struct iw_mlme {
         pub cmd: __u16,
