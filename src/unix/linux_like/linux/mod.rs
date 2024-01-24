@@ -4690,58 +4690,6 @@ pub const SCHED_FLAG_ALL: ::c_int = SCHED_FLAG_RESET_ON_FORK
     | SCHED_FLAG_KEEP_ALL
     | SCHED_FLAG_UTIL_CLAMP;
 
-// ptrace.h
-pub const PTRACE_TRACEME: usize = 0;
-pub const PTRACE_PEEKTEXT: usize = 1;
-pub const PTRACE_PEEKDATA: usize = 2;
-pub const PTRACE_PEEKUSR: usize = 3;
-pub const PTRACE_POKETEXT: usize = 4;
-pub const PTRACE_POKEDATA: usize = 5;
-pub const PTRACE_POKEUSR: usize = 6;
-pub const PTRACE_CONT: usize = 7;
-pub const PTRACE_KILL: usize = 8;
-pub const PTRACE_SINGLESTEP: usize = 9;
-
-pub const PTRACE_ATTACH: usize = 16;
-pub const PTRACE_DETACH: usize = 17;
-
-pub const PTRACE_SYSCALL: usize = 24;
-
-pub const PTRACE_SETOPTIONS: usize = 0x4200;
-pub const PTRACE_GETEVENTMSG: usize = 0x4201;
-pub const PTRACE_GETSIGINFO: usize = 0x4202;
-pub const PTRACE_SETSIGINFO: usize = 0x4203;
-pub const PTRACE_GETREGSET: usize = 0x4204;
-pub const PTRACE_SETREGSET: usize = 0x4205;
-
-pub const PTRACE_SEIZE: usize = 0x4206;
-pub const PTRACE_INTERRUPT: usize = 0x4207;
-pub const PTRACE_LISTEN: usize = 0x4208;
-
-pub const PTRACE_PEEKSIGINFO: usize = 0x4209;
-
-pub const PTRACE_GETSIGMASK: usize = 0x420a;
-pub const PTRACE_SETSIGMASK: usize = 0x420b;
-
-pub const PTRACE_SECCOMP_GET_FILTER: usize = 0x420c;
-pub const PTRACE_SECCOMP_GET_METADATA: usize = 0x420d;
-
-pub const PTRACE_GET_SYSCALL_INFO: usize = 0x420e;
-pub const PTRACE_SYSCALL_INFO_NONE: usize = 0;
-pub const PTRACE_SYSCALL_INFO_ENTRY: usize = 1;
-pub const PTRACE_SYSCALL_INFO_EXIT: usize = 2;
-pub const PTRACE_SYSCALL_INFO_SECCOMP: usize = 3;
-
-pub const PTRACE_GET_RSEQ_CONFIGURATION: usize = 0x420f;
-
-pub const PTRACE_EVENTMSG_SYSCALL_ENTRY: usize = 1;
-pub const PTRACE_EVENTMSG_SYSCALL_EXIT: usize = 2;
-
-/* Read signals from a shared (process wide) queue */
-pub const PTRACE_PEEKSIGINFO_SHARED: usize = 1 << 0;
-
-pub const PTRACE_SET_SYSCALL_USER_DISPATCH_CONFIG: usize = 0x4210;
-pub const PTRACE_GET_SYSCALL_USER_DISPATCH_CONFIG: usize = 0x4211;
 f! {
     pub fn NLA_ALIGN(len: ::c_int) -> ::c_int {
         return ((len) + NLA_ALIGNTO - 1) & !(NLA_ALIGNTO - 1)
