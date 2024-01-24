@@ -917,19 +917,19 @@ s_no_extra_traits! {
         pub anonymous_1 : __c_anonymous_ptrace_syscall_info,
 
     }
-            pub struct __c_anonymous_entry {
-                nr : ::__u64,
-                args: [::__u64 ;6],
-            }
-            pub struct __c_anonymous_exit {
-                rval : ::__s64 ,
-                is_error : ::__u8,
-            }
-            pub  struct __c_anonymous_seccomp {
-                nr : ::__u64,
-                args: [::__u64;6] ,
-                ret_data : ::__u32,
-            }
+    pub struct __c_anonymous_entry {
+        nr : ::__u64,
+        args: [::__u64 ;6],
+    }
+    pub struct __c_anonymous_exit {
+        rval : ::__s64 ,
+        is_error : ::__u8,
+    }
+    pub  struct __c_anonymous_seccomp {
+        nr : ::__u64,
+        args: [::__u64;6] ,
+        ret_data : ::__u32,
+    }
 }
 
 s_no_extra_traits! {
