@@ -4322,7 +4322,9 @@ fn test_linux(target: &str) {
         // the `ifc_ifcu` field is an anonymous union
         (struct_ == "ifconf" && field == "ifc_ifcu") ||
         // glibc uses a single array `uregs` instead of individual fields.
-        (struct_ == "user_regs" && arm)
+        (struct_ == "user_regs" && arm)||
+        (struct_ == "ptrace_syscall_info" && field == "anonymous_1")
+
     });
 
     cfg.skip_roundtrip(move |s| match s {
