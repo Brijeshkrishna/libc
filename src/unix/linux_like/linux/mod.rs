@@ -4740,31 +4740,6 @@ pub const PTRACE_EVENTMSG_SYSCALL_EXIT: usize = 2;
 /* Read signals from a shared (process wide) queue */
 pub const PTRACE_PEEKSIGINFO_SHARED: usize = 1 << 0;
 
-/* Wait extended result codes for the above trace options.  */
-pub const PTRACE_EVENT_FORK: usize = 1;
-pub const PTRACE_EVENT_VFORK: usize = 2;
-pub const PTRACE_EVENT_CLONE: usize = 3;
-pub const PTRACE_EVENT_EXEC: usize = 4;
-pub const PTRACE_EVENT_VFORK_DONE: usize = 5;
-pub const PTRACE_EVENT_EXIT: usize = 6;
-pub const PTRACE_EVENT_SECCOMP: usize = 7;
-
-/* Options set using PTRACE_SETOPTIONS or using PTRACE_SEIZE @data param */
-pub const PTRACE_O_TRACESYSGOOD: usize = 1;
-pub const PTRACE_O_TRACEFORK: usize = 1 << PTRACE_EVENT_FORK;
-pub const PTRACE_O_TRACEVFORK: usize = 1 << PTRACE_EVENT_VFORK;
-pub const PTRACE_O_TRACECLONE: usize = 1 << PTRACE_EVENT_CLONE;
-pub const PTRACE_O_TRACEEXEC: usize = 1 << PTRACE_EVENT_EXEC;
-pub const PTRACE_O_TRACEVFORKDONE: usize = 1 << PTRACE_EVENT_VFORK_DONE;
-pub const PTRACE_O_TRACEEXIT: usize = 1 << PTRACE_EVENT_EXIT;
-pub const PTRACE_O_TRACESECCOMP: usize = 1 << PTRACE_EVENT_SECCOMP;
-
-/* eventless options */
-pub const PTRACE_O_EXITKILL: usize = (1 << 20);
-pub const PTRACE_O_SUSPEND_SECCOMP: usize = (1 << 21);
-
-pub const PTRACE_O_MASK: usize = 0x000000ff | PTRACE_O_EXITKILL | PTRACE_O_SUSPEND_SECCOMP;
-
 pub const PTRACE_SET_SYSCALL_USER_DISPATCH_CONFIG: usize = 0x4210;
 pub const PTRACE_GET_SYSCALL_USER_DISPATCH_CONFIG: usize = 0x4211;
 f! {
